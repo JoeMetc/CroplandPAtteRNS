@@ -7,7 +7,6 @@ import pandas as pd
 import geopandas as gpd
 import os
 import re
-import math
 
 WORKINGDIR = "/home/s.2275333/Datasets/PASTIS" # "/home/s.2275333/Datasets/PASTIS", "D:/Data/PASTIS24", "D:/Data/PASTIS"
 SAVEDIR = "OfficialFolds"

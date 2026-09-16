@@ -48,7 +48,7 @@ MODEL:
 
 
 RUNTIME:
-  epochs: 150 # 150
+  epochs: 2 # 150
   earlyStopMinEpochs: 150 # set to >= n epochs to disable early stopping (i.e. final results runs to ensure all good epochs get chance)
   earlyStopPatience: 20
   earlyStopMargin: 0.005
