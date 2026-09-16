@@ -1,0 +1,55 @@
+LOCAL:
+  dynamicGPU: True # If true, presumes single GPU available and auto detects in code. False uses ID below.
+  gpuNum: 0
+  datasetPathsFile: "source/datasets/pathconfs/localPaths.yaml"
+  classStatsFile: "PASTISFullClassStats.csv"
+  saveModel: True
+  saveMIoUThresh: 0.70
+  modelName: "MTLCC24PAtteRNSP4AllFolds1"
+  resultsDir: "/scratch/s.2275333/Results/TempSeg"
+  seed: 1 # None or int default 1; 1, 2, 3 for main repeat tris
+
+MODEL:
+  architecture:  "PAtteRNS"
+  variant: "" # ""
+  dates: "spectralChannel" # "spectralChannel", "paired" - options to switch between different model implementations
+  dateOrder: "DSDS" # DSDS, DOY
+  tempEmbeddingLength: 342.0 # Float with .0, what scale temporal positions will be mapped to in embedding, DOY = Ignored (365), DSDS PASTIS = 407, DSDS MTLCC = 342
+  imgSize: 24 # Only square images for now # 48, 24
+  imgSpectralChannels: 13 # 10 PASTIS, 13 MTLCC
+  maxTemporalBands: 45 # 61 PASTIS, 45 MTLCC 2016, X MTLCC 2017
+  classCount: 18 # 20 PASTIS, 18 MTLCC
+  classNames: ["Unknown", "Sugar Beet", "Summer Oat", "Meadow", "Rape", "Hop", "Winter Spelt", "Winter Triticale", "Beans", "Peas", "Potatoe", "Soybeans", "Asparagus", "Winter Wheat", "Winter Barley", "Winter Rye", "Summer Barley", "Maize"]
+  dropout: 0.1 # default of 0.1
+  patchSize: 4 # 4, 2
+  temporalDim: 128 # keep all dims same
+  spectralDim: 128
+  spatialDim: 128
+  transformerTemporalDepth: 4
+  transformerSpectralDepth: 4
+  transformerSpatialDepth: 4
+  temporalHeads: 4
+  spectralHeads: 4
+  spatialHeads: 4
+  temporalFFDim: 512
+  spectralFFDim: 512
+  spatialFFDim: 512
+  maskBackground: False # True converts all class 19 to class 0 and masks class 0 in loss and 0, 19 in metrics, False masks class 19 in loss and metrics
+
+RUNTIME:
+  epochs: 150 # 150
+  earlyStopMinEpochs: 150 # set to >= n epochs to disable early stopping (i.e. final results runs to ensure all good epochs get chance)
+  earlyStopPatience: 20
+  earlyStopMargin: 0.005
+  lr: 0.0005 # 0.0005
+  weightDecay: 0.0001 # 0.0001
+  lrMinDivisor: 200
+  warmupEpochs: 10
+
+DATA:
+  dataset: "MTLCC24" # PASTIS, PASTIS24, MTLCC48, MTLCC24
+  folds: 1
+  splits: ["MTLCC24Fold0"]
+  # splits: ["MTLCC24Fold0","MTLCC24Fold1","MTLCC24Fold2","MTLCC24Fold3","MTLCC24Fold4","MTLCC24Fold5","MTLCC24Fold6","MTLCC24Fold7","MTLCC24Fold8","MTLCC24Fold9"]
+  batchSize: 4 # 4 works with all model-dataset-tilesize combos
+  numWorkers: 4

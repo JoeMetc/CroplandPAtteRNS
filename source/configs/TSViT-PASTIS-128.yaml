@@ -1,0 +1,51 @@
+LOCAL:
+  dynamicGPU: True # If true, presumes single GPU available and auto detects in code. False uses ID below.
+  gpuNum: 0
+  datasetPathsFile: "source/datasets/pathconfs/localPaths.yaml"
+  classStatsFile: "PASTISFullClassStats.csv"
+  saveModel: True
+  saveMIoUThresh: 0.55
+  modelName: "PASTIS128TSViTSizeTestingAllFolds1"
+  resultsDir: "/scratch/s.2275333/Results/TempSeg"
+  seed: 1 # None or int default 1; 1, 2, 3 for main repeat tris
+
+MODEL:
+  architecture:  "TSViT"
+  dates: "spectralChannel" # "spectralChannel", "paired" - options to switch between different model implementations
+  dateOrder: "DOY" # DSDS, DOY
+  tempEmbeddingLength: 407.0 # Float with .0, what scale temporal positions will be mapped to in embedding, DOY = Ignored (365), DSDS PASTIS = 407, DSDS MTLCC = 342
+  img_res: 128
+  max_seq_len: 61
+  num_channels: 11
+  # num_features: 16
+  classCount: 20
+  classNames: ["Background", "Meadow", "Soft Winter Wheat", "Corn", "Winter Barley", "Winter Rapeseed", "Spring Barley", "Sunflower", "Grapevine", "Beet", "Winter Triticale", "Winter Durum Wheat", "Fruits, Vegtables, & Flowers", "Potatoes", "Leguminous Fodder", "Soybeans", "Orchard", "Mixed Cereal", "Sorghum", "Void Parcel"]
+  dropout: 0.1
+  patch_size: 4
+  dim: 128
+  temporal_depth: 4
+  spatial_depth: 4
+  heads: 4
+  pool: 'cls'
+  dim_head: 32
+  emb_dropout: 0.05
+  scale_dim: 4
+  maskBackground: False # True converts all class 19 to class 0 and masks class 0 in loss and 0, 19 in metrics, False masks class 19 in loss and metrics
+
+RUNTIME:
+  epochs: 150 # 150
+  earlyStopMinEpochs: 150 # set to >= n epochs to disable early stopping (i.e. final results runs to ensure all good epochs get chance)
+  earlyStopPatience: 20
+  earlyStopMargin: 0.005
+  lr: 0.0005 # 0.0005
+  weightDecay: 0.0001 # 0.0001
+  lrMinDivisor: 200
+  warmupEpochs: 10
+
+DATA:
+  dataset: "PASTIS" # PASTIS, PASTIS24, MTLCC48, MTLCC24
+  folds: 1
+  splits: ["PASTISFold1"]
+  # splits: ["PASTISFold1", "PASTISFold2", "PASTISFold3", "PASTISFold4", "PASTISFold5"]
+  batchSize: 4 # 4 works with all model-dataset-tilesize combos
+  numWorkers: 4
