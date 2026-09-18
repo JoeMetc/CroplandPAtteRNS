@@ -227,20 +227,20 @@ def build_sits_interpolate(x10, x20, x60):
 
     T, H, W, _ = x10.shape
 
-    # --- Fix 1: reorder 10m bands ---
+    # reorder 10m bands
     # Current: [B04, B03, B02, B08]
     # Desired: [B02, B03, B04, B08]
     x10 = x10[..., [2, 1, 0, 3]]
 
-    # --- Fix 2: bilinear interpolation ---
+    # bilinear interpolation
     x20_up = resize_like_pytorch(x20.astype(np.float32), H, W)
     x60_up = resize_like_pytorch(x60.astype(np.float32), H, W)
 
-    # Optional: cast back if needed
+    # cast back if needed
     x20_up = x20_up.astype(x10.dtype)
     x60_up = x60_up.astype(x10.dtype)
 
-    # --- Concatenate ---
+    # concatenate
     sits = np.concatenate([x10, x20_up, x60_up], axis=-1)
 
     # (T, H, W, C) -> (T, C, H, W)
@@ -310,15 +310,15 @@ def main():
         description="Convert MTLCC .tfrecord.gz files to numpy arrays."
     )
     ap.add_argument(
-        "--indir", default="D:/Data/MTLCC/data_IJGI18/datasets/full/240/data16",
+        "--indir", default="C:/Your/Filepath/Here/MTLCC/data_IJGI18/datasets/full/240/data16",
         help="Path to a single .tfrecord.gz file, or a directory of files."
     )
     ap.add_argument(
-        "--outdir", default="D:/Data/MTLCC/data_IJGI18/datasets/fullNpy/240/data16",
+        "--outdir", default="C:/Your/Filepath/Here/MTLCC/data_IJGI18/datasets/fullNpy/240/data16",
         help="Output directory for .npy files (default: npy_output)."
     )
     ap.add_argument(
-        "--dates", default="D:/Data/MTLCC/data_IJGI18/observations.csv",
+        "--dates", default="C:/Your/Filepath/Here/MTLCC/data_IJGI18/observations.csv",
         help="Path to acquisition dates CSV. If provided, doy values are "
              "resolved to real calendar dates via the CSV index."
     )

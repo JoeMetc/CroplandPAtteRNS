@@ -37,9 +37,9 @@ def unfold_reshape(img, HW):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="PASTIS-24 tile writer")
-    parser.add_argument('--rootdir', type=str, default="BLOCK D:/Data/PASTIS/PASTISFresh",
+    parser.add_argument('--rootdir', type=str, default="C:/Your/Filepath/Here/PASTIS/PASTISFresh",
                         help='PASTIS24 root dir')
-    parser.add_argument('--savedir', type=str, default="BLOCK D:/Data/PASTIS24/PASTISFresh",
+    parser.add_argument('--savedir', type=str, default="C:/Your/Filepath/Here/PASTIS24/PASTISFresh",
                         help='where to save new data')
     parser.add_argument('--HWout', type=int, default=24,
                         help='size of extracted windows')

@@ -2,7 +2,7 @@ LOCAL:
   dynamicGPU: True # If true, presumes single GPU available and auto detects in code. False uses ID below.
   gpuNum: 0
   datasetPathsFile: "source/datasets/pathconfs/localPaths.yaml"
-  classStatsFile: "PASTISFullClassStats.csv"
+  # classStatsFile: "PASTISFullClassStats.csv" # unused option to expose class proportion data from pixelPopulationCounter.py for loss weighting
   saveModel: True
   saveMIoUThresh: 0.55
   modelName: "PASTIS24UNet3DSizeTestingAllFolds3"

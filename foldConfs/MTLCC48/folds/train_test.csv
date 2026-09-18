@@ -1,0 +1,5 @@
+fieldID,imagepath,labelpath,datepath
+89,data16/89_sits.npy,data16/89_labels.npy,data16/89_dates.npy
+90,data16/90_sits.npy,data16/90_labels.npy,data16/90_dates.npy
+91,data16/91_sits.npy,data16/91_labels.npy,data16/91_dates.npy
+92,data16/92_sits.npy,data16/92_labels.npy,data16/92_dates.npy
